@@ -1,4 +1,4 @@
-# Hardened Shared-Hosting Root .htaccess (when uploaded directly to public_html)
+# Hardened Shared-Hosting Root .htaccess (when uploaded directly to public_html or subdomain root)
 Options -Indexes
 
 <IfModule mod_rewrite.c>
@@ -11,11 +11,13 @@ Options -Indexes
     # Block direct HTTP access to sensitive directories, dotfiles, and project metadata
     RewriteRule "(^|/)\.(?!well-known/)" - [F,L]
     RewriteRule ^(app|bootstrap|config|database|docs|node_modules|resources|routes|storage|tests|vendor)(/|$) - [F,L]
-    RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|phpstan\.neon|pint\.json|Dockerfile|compose\.yaml|.*\.(md|sqlite|log))$ - [F,L,NC]
+    RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|phpstan\.neon|pint\.json|Dockerfile|compose\.yaml|.*\.(md|sqlite|log|ini))$ - [F,L,NC]
 
-    # Serve static files from /public transparently (works in root public_html and subdirectories)
+    # Stop internal rewrite loop once already rewritten into public/
+    RewriteRule ^public/ - [L]
+
+    # Serve static files from /public transparently (works in root and subdirectories)
     RewriteRule ^(assets/.*|favicon\.svg|robots\.txt)$ public/$1 [L]
-    RewriteCond %{REQUEST_URI} !/public/
     RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
     RewriteRule ^(.*)$ public/$1 [L]
 
