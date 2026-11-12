@@ -1,6 +1,10 @@
 # Hardened Shared-Hosting Root .htaccess (when uploaded directly to public_html or subdomain root)
 Options -Indexes
 
+<IfModule mod_dir.c>
+    DirectorySlash Off
+</IfModule>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -10,7 +14,8 @@ Options -Indexes
 
     # Block direct HTTP access to sensitive directories, dotfiles, and project metadata
     RewriteRule "(^|/)\.(?!well-known/)" - [F,L]
-    RewriteRule ^(app|bootstrap|config|database|docs|node_modules|resources|routes|storage|tests|vendor)(/|$) - [F,L]
+    RewriteRule ^(app|bootstrap|config|database|node_modules|resources|routes|storage|tests|vendor)(/|$) - [F,L]
+    RewriteRule ^docs/.+ - [F,L]
     RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|phpstan\.neon|pint\.json|Dockerfile|compose\.yaml|.*\.(md|sqlite|log|ini))$ - [F,L,NC]
 
     # Stop internal rewrite loop once already rewritten into public/
