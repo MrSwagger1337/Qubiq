@@ -1,0 +1,26 @@
+services:
+  qubiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qubiq-qr-studio
+    ports:
+      - "8080:80"
+    environment:
+      APP_NAME: "Qubiq"
+      APP_ENV: "production"
+      APP_DEBUG: "false"
+      APP_URL: "http://localhost:8080"
+      DYNAMIC_QR_ENABLED: "true"
+      ANALYTICS_ENABLED: "true"
+      DB_DATABASE: "storage/database/qubiq.sqlite"
+      RATE_LIMIT_ENABLED: "true"
+    volumes:
+      - qubiq_sqlite_data:/var/www/html/storage/database
+      - qubiq_logs:/var/www/html/storage/logs
+    restart: unless-stopped
+
+volumes:
+  qubiq_sqlite_data:
+  qubiq_logs:
+

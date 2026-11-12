@@ -1,0 +1,9 @@
+{
+    "preset": "psr12",
+    "exclude": [
+        "storage",
+        "vendor",
+        "node_modules"
+    ]
+}
+

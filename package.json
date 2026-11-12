@@ -1,0 +1,20 @@
+{
+    "name": "qubiq-qr-generator",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Frontend build & validation scripts for Qubiq QR Code Generator",
+    "type": "module",
+    "license": "MIT",
+    "scripts": {
+        "build:css": "tailwindcss -i ./resources/css/app.css -o ./public/assets/css/app.css --minify",
+        "build:js": "node ./resources/js/build.mjs",
+        "build": "npm run build:css && npm run build:js",
+        "lint:js": "node ./resources/js/check-syntax.mjs",
+        "check": "npm run lint:js && npm run build"
+    },
+    "devDependencies": {
+        "@tailwindcss/cli": "^4.1.0",
+        "tailwindcss": "^4.1.0"
+    }
+}
+

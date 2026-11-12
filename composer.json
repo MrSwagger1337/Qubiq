@@ -1,0 +1,75 @@
+{
+    "name": "mrswagger1337/qubiq",
+    "description": "Qubiq — Free, privacy-first, open-source PHP 8.2+ QR Code Generator & Developer API (Shared Hosting, VPS & Docker ready).",
+    "type": "project",
+    "homepage": "https://qubiq.herculesprojects.net",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/MrSwagger1337/Qubiq/issues",
+        "source": "https://github.com/MrSwagger1337/Qubiq"
+    },
+    "keywords": [
+        "qrcode",
+        "qr-generator",
+        "svg",
+        "pdf",
+        "eps",
+        "php82",
+        "shared-hosting",
+        "privacy-first",
+        "open-source"
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-fileinfo": "*",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "chillerlan/php-qrcode": "^6.0",
+        "setasign/fpdf": "^1.8",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.20",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5"
+    },
+    "suggest": {
+        "ext-intl": "Enables internationalized domain name (IDN/punycode) normalization.",
+        "ext-pdo_sqlite": "Required only when optional Dynamic QR Codes & Analytics are enabled."
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "serve": "php -S localhost:8000 -t public public/index.php",
+        "migrate": "php database/migrate.php",
+        "test": "phpunit --colors=always",
+        "stan": "phpstan analyse --memory-limit=512M",
+        "lint": "pint --test",
+        "format": "pint",
+        "check": [
+            "@lint",
+            "@stan",
+            "@test"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "platform": {
+            "php": "8.2.28"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
